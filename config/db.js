@@ -1,14 +1,27 @@
-const mongoose = require('mongoose')
-const url ='mongodb+srv://stefania2003:teamojb2003@cluster0.suldz4f.mongodb.net/?retryWrites=true&w=majority'
+const sequelize = require ('./seq')
+const clors = require('colors')
 
-//Componente funcional
-const connectDB = async ()=>{
-    const conn = await mongoose.connect(url,{
-        useUnifiedTopology: true,
-        useNewUrlParser:true
-    })
-    console.log(conn.connection.host)
+
+//funcion para conectarme a la db
+const connectDB =async ()=>{
+    try {
+     await sequelize.authenticate()   
+        console.log('Conectado al servidor mysql'.bgCyan)
+        //crear un usuario
+       /* const jane = await User.create({ username: "Ana", email: "ana@hmail.com", password:"123458"});
+        console.log("Jane's auto-generated ID:", jane.id);
+        const users = await User.findAll();
+        console.log(users.every(user => user instanceof User)); // true
+        console.log("All users:", JSON.stringify(users, null, 2));
+        await User.update({  username: "Ana"}, {
+            where: {
+              userame: "LINA"
+            }
+          });*/
+    } catch (error) {
+        console.log('error')
+    }
+    
 }
 
-
-connectDB()
+module.exports = connectDB
