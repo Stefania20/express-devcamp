@@ -17,6 +17,8 @@ dotenv.config({
 //2. Crear el objeto app con express
 const app = express()
 
+app.use(express.json())
+
 //conectar a db
 connectDB()
 
@@ -25,10 +27,6 @@ app.use('/api/v1/bootcamps' , bootcampRoutes)
 app.use('/api/v1/courses' , coursesRoutes)
 app.use('/api/v1/users' , userRoutes)
 
-//primera ruta de prueba
-app.get('/' ,( request , response )=>{
-    response.send('ruta funcionando')                   
-})
 
 //consultar endpoints del proyecto
 console.log(listEndpoints(app))

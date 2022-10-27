@@ -1,3 +1,9 @@
+//1. OBJETO DE CONEXION
+const sequielize = require ('../config/seq')
+//2.datatypes
+const{DataTypes} = require('sequelize')
+//const UserModel = require()
+
 exports.getAllBootcamps = (req , res)=>{
     res.status(200).json({
         "succes" : true,

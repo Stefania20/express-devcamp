@@ -1,45 +1,55 @@
-const {DataTypes} = require ('sequelize')
-const UserModel = require ('../models/user')
-const sequelize = require ('../config/seq')
+const {DataTypes} = require('sequelize')
+const UserModel = require('../models/user')
+const sequelize = require('../config/seq')
 
 //objeto user
 const User = UserModel(sequelize, DataTypes)
 
-exports.getAllUsers = async(req , res)=>{
+exports.getAllUsers = async (req , res)=>{
     const allUsers = await User.findAll()
+    console.log(allUsers)
     res.status(200).json({
-        "succes" : true,
+        "success" : true,
         "data" : allUsers
     })
 }
 
-exports.getSingleUser = (req , res)=>{
+exports.getSingleUser = async(req , res)=>{
+    const singleUser = await User.findByPk(req.params.id)
     res.status(200).json({
-        "succes" : true,
-        "data" : `Single users ${req.params.id}`
+     "seccess" : true,
+     "data" : singleUser
     })
 }
 
-exports.createUser = (req , res)=>{
+exports.createUser= async (req , res)=>{
+    console.log(req.body)
+    const newUser = await User.create(req.body)
     res.status(201).json({
-        "succes" : true,
-        "data" : "create users"
-    })
-
-}
-
-exports.updateUser = (req , res)=>{
-    res.status(201).json({
-        "succes" : true,
-        "data" : `update el users ${req.params.id}`
+        "seccess" : true,
+        "data" : newUser
     })
 }
 
-exports.deleteUser = (req , res)=>{
-    res.status(201).json({
-        "succes" : true,
-        "data" : `delete users ${req.params.id}`
+exports.updateUser= async (req , res)=>{
+    await User.update(req.body,{
+        where:{
+            id: req.params.id
+        }
     })
-
+    const singleUser = await User.findByPk(req.params.id)
+    res.status(200).json({
+     "seccess" : true,
+     "data" : singleUser
+    })
 }
 
+exports.deleteUser = async (req,res) => {
+    await User.destroy({
+        where: {
+            id: req.params.id
+        }
+    })
+    const singleUser = await User.findByPk(req.params.id)
+    res.status(200).json({"success": true, "data": singleUser})
+}

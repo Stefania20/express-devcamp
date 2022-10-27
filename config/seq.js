@@ -15,5 +15,5 @@ const sequelize =new Sequelize(
         dialect:process.env.DATABASE_MOTOR,
     }
 )
-console.log(sequelize)
+//console.log(sequelize)
 module.exports = sequelize
