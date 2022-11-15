@@ -101,7 +101,7 @@ exports.updateCourses= async (req , res)=>{
                 }
             })
             //volvemos a seleccionar usuario
-            const updateCourses = await User.findByPk(req.params.id)
+            const updateCourses = await Courses.findByPk(req.params.id)
             //response con usuario actualizaco
             res.status(200).json({
                 "seccess" : true,
@@ -138,7 +138,7 @@ exports.deleteCourses = async (req,res) => {
                  }
              })
              //volvemos a seleccionar usuario
-             const deleteCourse = await User.findByPk(req.params.id)
+             const deleteCourse = await Courses.findByPk(req.params.id)
              //response con usuario actualizaco
              res.status(200).json({
                  "seccess" : true,
@@ -149,12 +149,12 @@ exports.deleteCourses = async (req,res) => {
     } catch (error) {
         
     }
-    await User.destroy({
+    await Courses.destroy({
         where: {
             id: req.params.id
         }
     })
-    const singleCourse = await User.findByPk(req.params.id)
+    const singleCourse = await Courses.findByPk(req.params.id)
     res.status(200).json({"success": true, "data": singleCourse})
 }
 
